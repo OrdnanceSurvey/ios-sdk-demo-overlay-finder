@@ -36,7 +36,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="774585933">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIToolbar" id="873454157">
@@ -46,7 +46,7 @@
 							<object class="IBUISegmentedControl" id="672492131">
 								<reference key="NSNextResponder" ref="873454157"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{6, 7}, {309, 32}}</string>
+								<string key="NSFrame">{{6, 8}, {309, 31}}</string>
 								<reference key="NSSuperview" ref="873454157"/>
 								<reference key="NSNextKeyView" ref="313113825"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -56,7 +56,7 @@
 								<int key="IBNumberOfSegments">3</int>
 								<int key="IBSelectedSegmentIndex">0</int>
 								<array key="IBSegmentTitles">
-									<string>First</string>
+									<string>Easy</string>
 									<string>Medium</string>
 									<string>Hard</string>
 								</array>
@@ -130,6 +130,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 515}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -158,6 +159,7 @@
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="873454157"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -586,7 +588,7 @@
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<integer value="2" key="29.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
+				<integer value="0" key="29.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<boolean value="NO" key="31.IBViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
