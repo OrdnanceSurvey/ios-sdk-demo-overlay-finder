@@ -18,7 +18,6 @@ static NSString *const kOSApiKeyUrl = @"YOUR_URL_HERE";
 static BOOL const kOSIsPro = YES;
 
 
-
 @interface MapViewController () <OSMapViewDelegate>
 
 @end
@@ -112,6 +111,7 @@ typedef enum{
     double circleRadius;
     double polyPointsDelta;
     
+    // Simply adjust the size of overlays
     switch (level) {
             
         case EASY:
@@ -200,15 +200,15 @@ typedef enum{
 -(OSPolyline*)generatePolylineWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount
 {
     //generate the start point and then the OSGridRect this will sit in
-    OSGridPoint * startPoint = [self generateRandomGridPointWithinGridRect: &OSNationalGridBounds];
-    OSGridRect polyGridRect = OSGridRectMake(startPoint->easting, startPoint->northing, maxDelta, maxDelta);
+    OSGridPoint startPoint = [self generateRandomGridPointWithinGridRect: OSNationalGridBounds];
+    OSGridRect polyGridRect = OSGridRectMake(startPoint.easting, startPoint.northing, maxDelta, maxDelta);
     
     //generate X random points
     OSGridPoint points[pointsCount];
     for(int x = 0; x < pointsCount; x++)
     {
         
-        points[x] = *[self generateRandomGridPointWithinGridRect:&polyGridRect];
+        points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
         
     }
     
@@ -222,21 +222,22 @@ typedef enum{
 -(OSPolygon*)generatePolygonWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount
 {
     //generate the start point and then the OSGridRect this will sit in
-    OSGridPoint * startPoint = [self generateRandomGridPointWithinGridRect:&OSNationalGridBounds];
-    OSGridRect polyGridRect = OSGridRectMake(startPoint->easting, startPoint->northing, maxDelta, maxDelta);
+    OSGridPoint startPoint = [self generateRandomGridPointWithinGridRect:OSNationalGridBounds];
+    OSGridRect polyGridRect = OSGridRectMake(startPoint.easting, startPoint.northing, maxDelta, maxDelta);
     
     //generate X random points
     OSGridPoint points[pointsCount];
     for(int x = 0; x < pointsCount; x++)
     {
         
-        points[x] = *[self generateRandomGridPointWithinGridRect:&polyGridRect];
+        points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
         
     }
     
     return [OSPolygon polygonWithGridPoints:points count:pointsCount];
     
-    //return [OSPolygon polygonWithCoordinates:coords count:pointCount interiorPolygons:[NSArray arrayWithObject:poly2]];
+    //Possibly do this in future
+    //return [OSPolygon polygonWithCoordinates:coords count:pointCount interiorPolygons:[NSArray arrayWithObject:AnotherArray]];
     
 }
 
@@ -246,13 +247,13 @@ typedef enum{
 -(OSPolygon*)generateSquareWithSideLength:(double)length
 {
     
-    OSGridPoint * sw = [self generateRandomGridPointWithinGridRect:&OSNationalGridBounds];
+    OSGridPoint sw = [self generateRandomGridPointWithinGridRect:OSNationalGridBounds];
     
     //array of 4 corners
-    OSGridPoint points[] = {{sw->easting,sw->northing},
-        {sw->easting+length,sw->northing},
-        {sw->easting+length,sw->northing+length},
-        {sw->easting,sw->northing+length}};
+    OSGridPoint points[] = {{sw.easting,sw.northing},
+        {sw.easting+length,sw.northing},
+        {sw.easting+length,sw.northing+length},
+        {sw.easting,sw.northing+length}};
     
     return [OSPolygon polygonWithGridPoints: points count: 4];
 }
@@ -263,7 +264,7 @@ typedef enum{
 -(OSCircle*)generateOSCircleWithRadius:(double)radius
 {
     
-    CLLocationCoordinate2D centre = OSCoordinateForGridPoint(*[self generateRandomGridPointWithinGridRect:&OSNationalGridBounds]);
+    CLLocationCoordinate2D centre = OSCoordinateForGridPoint([self generateRandomGridPointWithinGridRect:OSNationalGridBounds]);
     OSCircle * circle = [OSCircle circleWithCenterCoordinate:centre radius: radius];
     
     return circle;
@@ -273,17 +274,17 @@ typedef enum{
 /*
  * Generate a OSGridPoint {e,n} within the specified OSGridRect
  */
--(OSGridPoint*)generateRandomGridPointWithinGridRect:(const OSGridRect*)gridRect
+-(OSGridPoint)generateRandomGridPointWithinGridRect:(OSGridRect)gridRect
 {
-    int minx = gridRect->originSW.easting;
-    int maxx = gridRect->originSW.easting+gridRect->size.width;
+    int minx = gridRect.originSW.easting;
+    int maxx = gridRect.originSW.easting+gridRect.size.width;
     int x = minx + arc4random() % (maxx - minx);
     
-    int miny = gridRect->originSW.northing;
-    int maxy = gridRect->originSW.northing+gridRect->size.height;
+    int miny = gridRect.originSW.northing;
+    int maxy = gridRect.originSW.northing+gridRect.size.height;
     int y = miny + arc4random() % (maxy - miny);
     
-    return &((OSGridPoint){x,y});
+    return ((OSGridPoint){x,y});
 }
 
 
@@ -322,9 +323,12 @@ typedef enum{
             // Get touch point in the mapView's coordinate system
             CGPoint touchPoint = [recognizer locationInView:_mapView];
             
+            //
             // If the touched point is in view's CGRect then it is the one tapped
             // NOTE: As this only checks if the touch point is in the CGRect, any taps outside
-            //    the overlay are handled. It also takes the first overlay in mapView if any overlap
+            //    the overlay are handled.
+            //    It also only takes the first overlay in mapViews array if any overlap
+            //
             if ( CGRectContainsPoint(viewFrame, touchPoint) )
             {
                 tappedOverlay = overlay;
