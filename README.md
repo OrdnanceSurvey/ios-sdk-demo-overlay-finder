@@ -1,7 +1,7 @@
 Description
 ---
 
-A sample app using the iOS Openspace SDK to demonstrate Overlays.
+A sample app using the ordnancesurvey-ios-sdk to demonstrate Overlays.
 
 The app is a game with the objective being to find all the overlays that are created at random locations on the map and then remove each overlay by tapping on them.
 
@@ -24,7 +24,18 @@ This project requires the following points are met:
 
 #### Register for an OS OpenSpace API Key
 
-Developers will need to register and obtain an API Key for one of the [OS OpenSpace services](http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-openspace/) in order to access the web mapping source.
+Developers who wish to use the WMTS services will need to register an App Name in order to authenticate the API key in the following format:
+
+APPLE_ID.BUNDLE_ID e.g. 12345678.com.example.find-a-postbox 
+
+Apple App ID: This is a numerical value that is unique for each iOS app and has to be created in Apple's iOS Provisioning portal.
+Bundle Identifier: This is the reverse domain name specified in Xcode, this is generated from the app name (how you name your project) and the company identifier specified. 
+
+#### Registration Process
+
+If you do not own a re-use data licence you can register for an API key to access [OS OpenSpace Pro] (https://www.ordnancesurvey.co.uk/oswebsite/web-services/os-openspace/pro/index.html) under a 90 day trial or a commercial re-use licence. 
+
+If you own a data licence, for example, you are a member of the PSMA, you can register for an API key to access [OSOnDemand WMTS] (http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-ondemand/pricing.html).
 
 #### Clone project
 
@@ -63,17 +74,17 @@ Project can now be built and run.
 Questions and Issues
 -------
 
-If you have any questions or issues with the ordnancesurey-ios-sdk or this demo app then please TODO: url to o-s.co.uk openspace forum
+If you have any questions or issues with the ordnancesurey-ios-sdk or this demo app then please email osopenspacepro@ordnancesurvey.co.uk
 
-License
+Licence
 -------
 
 The Ordnance Survey iOS SDK is protected by © Crown copyright – Ordnance
-Survey 2012. It is subject to licensing terms granted by Ordnance Survey, the
+Survey 2013. It is subject to licensing terms granted by Ordnance Survey, the
 national mapping agency of Great Britain.
 
 The Ordnance Survey iOS SDK includes the Route-Me library. The Route-Me
-library is copyright (c) 2008-2012, Route-Me Contributors All rights reserved
+library is copyright (c) 2008-2013, Route-Me Contributors All rights reserved
 (subject to the BSD licence terms as follows):
 
 Redistribution and use in source and binary forms, with or without
