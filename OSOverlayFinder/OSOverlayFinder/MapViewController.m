@@ -14,7 +14,7 @@
  * @see http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-openspace/index.html
  */
 static NSString *const kOSApiKey = @"YOUR_KEY_HERE";
-static NSString *const kOSApiKeyUrl = @"YOUR_URL_HERE";
+static NSString *const kOSAppleAppId = @"YOUR_APPLE_APP_ID";
 static BOOL const kOSIsPro = YES;
 
 
@@ -40,7 +40,7 @@ typedef enum{
 	
     {
         //create web tile source with API details
-        id<OSTileSource> webSource = [OSMapView webTileSourceWithAPIKey:kOSApiKey refererUrl:kOSApiKeyUrl openSpacePro:kOSIsPro];
+        id<OSTileSource> webSource = [OSMapView webTileSourceWithAPIKey:kOSApiKey appleId:kOSAppleAppId openSpacePro:kOSIsPro];
         _mapView.tileSources = [NSArray arrayWithObjects:webSource, nil];
         
         [_mapView setDelegate:self];
@@ -155,7 +155,7 @@ typedef enum{
     [_mapView removeOverlay: overlay];
     [self updateScoreLabel];
     
-    if([_mapView.overlays count] == 0)
+    if( [_mapView.overlays count] == 0 )
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!"
                                                         message:@"You have found all overlays!"
@@ -173,10 +173,14 @@ typedef enum{
 {
     int count = [_mapView.overlays count];
     
-    if(count == 1){
+    if( count == 1 ){
+        
         [self.scoreLbl setText:[NSString stringWithFormat:@"%i overlay remaining", count]];
+        
     }else{
+        
         [self.scoreLbl setText:[NSString stringWithFormat:@"%i overlays remaining", count]];
+        
     }
     
 }
@@ -205,7 +209,7 @@ typedef enum{
     
     //generate X random points
     OSGridPoint points[pointsCount];
-    for(int x = 0; x < pointsCount; x++)
+    for( int x = 0; x < pointsCount; x++ )
     {
         
         points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
@@ -227,7 +231,7 @@ typedef enum{
     
     //generate X random points
     OSGridPoint points[pointsCount];
-    for(int x = 0; x < pointsCount; x++)
+    for( int x = 0; x < pointsCount; x++ )
     {
         
         points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
@@ -236,7 +240,7 @@ typedef enum{
     
     return [OSPolygon polygonWithGridPoints:points count:pointsCount];
     
-    //Possibly do this in future
+    //Possibly do something with this in future
     //return [OSPolygon polygonWithCoordinates:coords count:pointCount interiorPolygons:[NSArray arrayWithObject:AnotherArray]];
     
 }
@@ -277,11 +281,11 @@ typedef enum{
 -(OSGridPoint)generateRandomGridPointWithinGridRect:(OSGridRect)gridRect
 {
     int minx = gridRect.originSW.easting;
-    int maxx = gridRect.originSW.easting+gridRect.size.width;
+    int maxx = gridRect.originSW.easting + gridRect.size.width;
     int x = minx + arc4random() % (maxx - minx);
     
     int miny = gridRect.originSW.northing;
-    int maxy = gridRect.originSW.northing+gridRect.size.height;
+    int maxy = gridRect.originSW.northing + gridRect.size.height;
     int y = miny + arc4random() % (maxy - miny);
     
     return ((OSGridPoint){x,y});
@@ -309,12 +313,12 @@ typedef enum{
     id<OSOverlay> tappedOverlay = nil;
     
     //iterate through overlays
-    for (id<OSOverlay> overlay in _mapView.overlays)
+    for ( id<OSOverlay> overlay in _mapView.overlays )
     {
         
         //Check if each Overlay is in current view
         OSOverlayView *view = [_mapView viewForOverlay:overlay];
-        if (view)
+        if ( view )
         {
             
             // Grab the overlay view frame rect from mapView
@@ -327,7 +331,7 @@ typedef enum{
             // If the touched point is in view's CGRect then it is the one tapped
             // NOTE: As this only checks if the touch point is in the CGRect, any taps outside
             //    the overlay are handled.
-            //    It also only takes the first overlay in mapViews array if any overlap
+            //    It also only takes the first overlay in mapView's array if any overlap
             //
             if ( CGRectContainsPoint(viewFrame, touchPoint) )
             {
@@ -337,7 +341,7 @@ typedef enum{
         }
     }
     
-    if(tappedOverlay)
+    if( tappedOverlay )
     {
         [self overlayTapped:tappedOverlay];
     }
@@ -355,7 +359,7 @@ typedef enum{
      * Style each type of overlay
      */
     
-    if ([overlay isKindOfClass:[OSCircle class]])
+    if ( [overlay isKindOfClass:[OSCircle class]] )
     {
 
         OSCircleView * view = [[OSCircleView alloc] initWithCircle:(id)overlay];
@@ -368,7 +372,7 @@ typedef enum{
         
         return view;
     }
-    if ([overlay isKindOfClass:[OSPolygon class]])
+    if ( [overlay isKindOfClass:[OSPolygon class]] )
     {
         OSPolygonView * view = [[OSPolygonView alloc] initWithPolygon:(id)overlay];
         
@@ -379,7 +383,7 @@ typedef enum{
         
         return view;
     }
-    if ([overlay isKindOfClass:[OSPolyline class]])
+    if ( [overlay isKindOfClass:[OSPolyline class]] )
     {
         OSPolylineView * view = [[OSPolylineView alloc] initWithPolyline:(id)overlay];
         
