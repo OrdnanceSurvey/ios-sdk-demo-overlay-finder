@@ -3,7 +3,7 @@ Description
 
 A sample app using the ordnancesurvey-ios-sdk to demonstrate Overlays.
 
-The app is a game with the objective being to find all the overlays that are created at random locations on the map and then remove each overlay by tapping on them.
+The app is a game with the objective being to find all the overlays that are created at random locations on the map and then remove each overlay by tapping on them until none remain
 
 
 
@@ -19,7 +19,7 @@ This project requires the following points are met:
 
 - Minimum iOS version: 6.0.1
 - Xcode version: 4.5.2
-- iOS Openspace SDK version: 0.5.6_105
+- iOS Openspace SDK version: TBC
 
 
 #### Register for an OS OpenSpace API Key
@@ -37,7 +37,9 @@ If you do not own a re-use data licence you can register for an API key to acces
 
 If you own a data licence, for example, you are a member of the PSMA, you can register for an API key to access [OSOnDemand WMTS] (http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-ondemand/pricing.html).
 
-#### Clone project
+#### Download project
+
+Copy the project to your local machine, eg:
 
 <pre>
 git clone https://github.com/OrdnanceSurvey/ios-sdk-demo-overlay-finder.git
@@ -45,31 +47,31 @@ git clone https://github.com/OrdnanceSurvey/ios-sdk-demo-overlay-finder.git
 
 #### Download ordnancesurvey-ios-sdk
 
- - Download the latest ordnancesurvey-ios-sdk static framework TBC 
- - Unzip into the project directory root
- <pre>
- $SRCROOT/StaticFrameworks
- </pre>
+- Download the latest ordnancesurvey-ios-sdk static framework TBC 
+- Unzip the SDK into the `StaticFrameworks` directory at the root of the project
+
+<pre>
+$SRCROOT/StaticFrameworks
+</pre>
  
 
-#### Update demo app with your API Key
+#### Update demo app with your API Key and Bundle Identifier details
 
-Copy and paste the API Key and associated URL into the demo app
+Copy and paste the API Key into the demo app
 
-Note: if using an OS OpenSpace Pro account then change kOSIsPro to TRUE
+Update the Bundle Identifier associated with the API Key
 
 <pre>
 //In MapViewController.m
 
 static NSString *const kOSApiKey = @"YOUR_KEY_HERE";
-static NSString *const kOSApiKeyUrl = @"YOUR_API_URL_HERE";
 static BOOL const kOSIsPro = YES;
 
 </pre>
 
 #### Build and run
 
-Project can now be built and run.
+Project can now be built and run. Have fun!
 
 Questions and Issues
 -------
