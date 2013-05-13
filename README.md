@@ -1,7 +1,7 @@
 Description
 ---
 
-A sample app using the ordnancesurvey-ios-sdk to demonstrate Overlays.
+A sample app using the openspace-ios-sdk to demonstrate Overlays.
 
 The app is a game with the objective being to find all the overlays that are created at random locations on the map and then remove each overlay by tapping on them.
 
@@ -21,10 +21,10 @@ This project requires the following points are met:
 - Xcode version: 4.5.2
 - iOS Openspace SDK version: 0.5.6_105
 
-
 #### Registration and Access
 
-See openspace-ios-sdk
+In order to access and use the Service via the OpenSpace iOS-SDK, you must [apply for an API key.](https://github.com/OrdnanceSurvey/openspace-ios-sdk#registration-and-access)
+
 
 #### Clone project
 
