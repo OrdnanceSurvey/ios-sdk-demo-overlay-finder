@@ -22,20 +22,9 @@ This project requires the following points are met:
 - iOS Openspace SDK version: 0.5.6_105
 
 
-#### Register for an OS OpenSpace API Key
+#### Registration and Access
 
-Developers who wish to use the WMTS services will need to register an App Name in order to authenticate the API key in the following format:
-
-APPLE_ID.BUNDLE_ID e.g. 12345678.com.example.find-a-postbox 
-
-Apple App ID: This is a numerical value that is unique for each iOS app and has to be created in Apple's iOS Provisioning portal.
-Bundle Identifier: This is the reverse domain name specified in Xcode, this is generated from the app name (how you name your project) and the company identifier specified. 
-
-#### Registration Process
-
-If you do not own a re-use data licence you can register for an API key to access [OS OpenSpace Pro] (https://www.ordnancesurvey.co.uk/oswebsite/web-services/os-openspace/pro/index.html) under a 90 day trial or a commercial re-use licence. 
-
-If you own a data licence, for example, you are a member of the PSMA, you can register for an API key to access [OSOnDemand WMTS] (http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-ondemand/pricing.html).
+See openspace-ios-sdk
 
 #### Clone project
 
@@ -43,9 +32,9 @@ If you own a data licence, for example, you are a member of the PSMA, you can re
 git clone https://github.com/OrdnanceSurvey/ios-sdk-demo-overlay-finder.git
 </pre>
 
-#### Download ordnancesurvey-ios-sdk
+#### Download openspace-ios-sdk
 
- - Download the latest ordnancesurvey-ios-sdk static framework TBC 
+ - Download the latest openspace-ios-sdk static framework TBC 
  - Unzip into the project directory root
  <pre>
  $SRCROOT/StaticFrameworks
@@ -74,16 +63,14 @@ Project can now be built and run.
 Questions and Issues
 -------
 
-If you have any questions or issues with the ordnancesurey-ios-sdk or this demo app then please email osopenspacepro@ordnancesurvey.co.uk
+If you have any questions or issues with the openspace-ios-sdk or this demo app then please email osopenspace@ordnancesurvey.co.uk
 
 Licence
 -------
 
-The Ordnance Survey iOS SDK is protected by © Crown copyright – Ordnance
-Survey 2013. It is subject to licensing terms granted by Ordnance Survey, the
-national mapping agency of Great Britain.
+The Ordnance Survey OpenSpace iOS SDK is protected by © Crown copyright – Ordnance Survey 2013. It is subject to licensing terms granted by Ordnance Survey, the national mapping agency of Great Britain.
 
-The Ordnance Survey iOS SDK includes the Route-Me library. The Route-Me
+The OpenSpace iOS SDK includes the Route-Me library. The Route-Me
 library is copyright (c) 2008-2013, Route-Me Contributors All rights reserved
 (subject to the BSD licence terms as follows):
 
