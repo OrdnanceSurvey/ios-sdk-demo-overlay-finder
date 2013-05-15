@@ -45,7 +45,7 @@ git clone https://github.com/OrdnanceSurvey/ios-sdk-demo-overlay-finder.git
 
 Copy and paste the API Key and associated URL into the demo app
 
-Note: if using an OS OpenSpace Pro account then change kOSIsPro to TRUE
+Change kOSIsPro to TRUE
 
 <pre>
 //In MapViewController.m
