@@ -13,8 +13,7 @@
  * Define your OS Openspace API KEY details below
  * @see http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-openspace/index.html
  */
-static NSString *const kOSApiKey = @"YOUR_KEY_HERE";
-static NSString *const kOSAppleAppId = @"YOUR_APPLE_APP_ID";
+static NSString *const kOSApiKey = @"API_KEY";
 static BOOL const kOSIsPro = YES;
 
 
@@ -40,7 +39,7 @@ typedef enum{
 	
     {
         //create web tile source with API details
-        id<OSTileSource> webSource = [OSMapView webTileSourceWithAPIKey:kOSApiKey appleId:kOSAppleAppId openSpacePro:kOSIsPro];
+        id<OSTileSource> webSource = [OSMapView webTileSourceWithAPIKey:kOSApiKey openSpacePro:kOSIsPro];
         _mapView.tileSources = [NSArray arrayWithObjects:webSource, nil];
         
         [_mapView setDelegate:self];
@@ -372,6 +371,7 @@ typedef enum{
         
         return view;
     }
+    
     if ( [overlay isKindOfClass:[OSPolygon class]] )
     {
         OSPolygonView * view = [[OSPolygonView alloc] initWithPolygon:(id)overlay];
@@ -383,6 +383,7 @@ typedef enum{
         
         return view;
     }
+    
     if ( [overlay isKindOfClass:[OSPolyline class]] )
     {
         OSPolylineView * view = [[OSPolylineView alloc] initWithPolyline:(id)overlay];
