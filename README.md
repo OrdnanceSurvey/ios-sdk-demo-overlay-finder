@@ -1,9 +1,9 @@
 Description
 ---
 
-A sample app using the openspace-ios-sdk to demonstrate Overlays.
+A sample app using the openspace-ios-sdk to demonstrate how to add various Overlays to a map.
 
-The app is a game with the objective being to find all the overlays that are created at random locations on the map and then remove each overlay by tapping on them until none remain
+The app is a game with the objective being to find all the overlays that are created at random locations on the map and then remove each overlay by tapping on them until none remain.
 
 
 
@@ -36,8 +36,8 @@ git clone https://github.com/OrdnanceSurvey/ios-sdk-demo-overlay-finder.git
 
 #### Download openspace-ios-sdk
 
- - Download the latest openspace-ios-sdk static framework TBC 
- - Unzip into the project directory root
+ - Download the latest [openspace-ios-sdk static framework](https://github.com/OrdnanceSurvey/openspace-ios-sdk#contents)
+ - Unzip into the StaticFrameworks directory under the project root
  <pre>
  $SRCROOT/StaticFrameworks
  </pre>
@@ -47,7 +47,9 @@ git clone https://github.com/OrdnanceSurvey/ios-sdk-demo-overlay-finder.git
 
 Copy and paste the API Key into the demo app
 
-Change kOSIsPro to TRUE
+Update Bundle Identifier
+
+Change kIS_PRO appropriately
 
 ```objective-c
 //In MapViewController.m
