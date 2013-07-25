@@ -268,9 +268,8 @@ typedef enum{
 {
     
     CLLocationCoordinate2D centre = OSCoordinateForGridPoint([self generateRandomGridPointWithinGridRect:OSNationalGridBounds]);
-    OSCircle * circle = [OSCircle circleWithCenterCoordinate:centre radius: radius];
+    return [OSCircle circleWithCenterCoordinate:centre radius: radius];
     
-    return circle;
 }
 
 
@@ -317,26 +316,28 @@ typedef enum{
         
         //Check if each Overlay is in current view
         OSOverlayView *view = [_mapView viewForOverlay:overlay];
-        if ( view )
+        if ( !view )
         {
+            continue;
+        }
+
             
-            // Grab the overlay view frame rect from mapView
-            CGRect viewFrame = [view.superview convertRect:view.frame toView:_mapView];
+        // Grab the overlay view frame rect from mapView
+        CGRect viewFrame = [view.superview convertRect:view.frame toView:_mapView];
             
-            // Get touch point in the mapView's coordinate system
-            CGPoint touchPoint = [recognizer locationInView:_mapView];
+        // Get touch point in the mapView's coordinate system
+        CGPoint touchPoint = [recognizer locationInView:_mapView];
             
-            //
-            // If the touched point is in view's CGRect then it is the one tapped
-            // NOTE: As this only checks if the touch point is in the CGRect, any taps outside
-            //    the overlay are handled.
-            //    It also only takes the first overlay in mapView's array if any overlap
-            //
-            if ( CGRectContainsPoint(viewFrame, touchPoint) )
-            {
-                tappedOverlay = overlay;
-                break;
-            }
+        //
+        // If the touched point is in view's CGRect then it is the one tapped
+        // NOTE: As this only checks if the touch point is in the CGRect, any taps outside
+        //    the overlay are handled.
+        //   It also only takes the first overlay in mapView's array if any overlap
+        //
+        if ( CGRectContainsPoint(viewFrame, touchPoint) )
+        {
+            tappedOverlay = overlay;
+            break;
         }
     }
     
