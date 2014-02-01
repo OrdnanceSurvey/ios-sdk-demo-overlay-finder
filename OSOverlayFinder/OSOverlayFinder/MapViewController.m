@@ -13,8 +13,8 @@
  * Define your OS Openspace API KEY details below
  * @see http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-openspace/index.html
  */
-static NSString *const kOSApiKey = @"API_KEY";
-static BOOL const kOSIsPro = YES;
+static NSString *const kOSApiKey = @"E2BE1E5D602A3BF3E0430B6CA40ACE3B";
+static BOOL const kOSIsPro = NO;
 
 
 @interface MapViewController () <OSMapViewDelegate>

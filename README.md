@@ -17,8 +17,8 @@ Getting started
 
 This project requires the following points are met:
 
-- Minimum iOS platform version: 6.0.1
-- Xcode version: 4.6
+- Minimum iOS platform version: 7.0.3
+- Xcode version: 5.0
 - Minimum Openspace iOS SDK version: v1.0.5
 
 #### Registration and Access
@@ -43,21 +43,9 @@ git clone https://github.com/OrdnanceSurvey/ios-sdk-demo-overlay-finder.git
  </pre>
  
 
-#### Update demo app with your API Key and Bundle Identifier details
+#### API Key
 
-Copy and paste the API Key into the demo app
-
-Update Bundle Identifier
-
-Change kIS_PRO appropriately
-
-```objective-c
-//In MapViewController.m
-
-static NSString *const kOSApiKey = @"YOUR_KEY_HERE";
-static BOOL const kOSIsPro = YES;
-
-```
+An OS OpenSpace Free API key has been pre-registered for this application and is present in this project code so that the app can be used straight away. 
 
 #### Build and run
 
