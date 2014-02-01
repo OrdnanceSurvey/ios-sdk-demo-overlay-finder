@@ -16,11 +16,6 @@
 static NSString *const kOSApiKey = @"E2BE1E5D602A3BF3E0430B6CA40ACE3B";
 static BOOL const kOSIsPro = NO;
 
-
-@interface MapViewController () <OSMapViewDelegate>
-
-@end
-
 /*
  * Define a basic game level structure
  */
@@ -31,10 +26,15 @@ typedef enum{
 } GameDifficultyLevel;
 
 
+@interface MapViewController () <OSMapViewDelegate>
+
+@end
+
+
 @implementation MapViewController
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
+    
     [super viewDidLoad];
 	
     {
@@ -58,10 +58,10 @@ typedef enum{
     /*
      * Simple method of showing instructions on the first run of this app on each device 
      */
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if( ![defaults objectForKey:@"firstRun"] )
-    {
+    
+    if( ![defaults objectForKey:@"firstRun"] ) {
+        
         [defaults setObject:[NSDate date] forKey:@"firstRun"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -71,6 +71,7 @@ typedef enum{
                                               cancelButtonTitle:@"Close"
                                               otherButtonTitles:nil];
         [alert show];
+        
     }
     
 
@@ -82,8 +83,8 @@ typedef enum{
 
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void) didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
@@ -95,8 +96,7 @@ typedef enum{
 /*
  * Initiate a new game with the difficulty level passed
  */
--(void)createNewGameForLevel:(GameDifficultyLevel)level
-{
+-(void) createNewGameForLevel:(GameDifficultyLevel)level {
     
     [_mapView removeOverlays:_mapView.overlays];
     
@@ -142,20 +142,20 @@ typedef enum{
     
     
     [self updateScoreLabel];
+    
 }
 
 
 /*
  * Action performed after an overlay has been tapped
  */
--(void)overlayTapped: (id<OSOverlay>)overlay
-{
+-(void) overlayTapped: (id<OSOverlay>)overlay {
     
     [_mapView removeOverlay: overlay];
     [self updateScoreLabel];
     
-    if( [_mapView.overlays count] == 0 )
-    {
+    if( [_mapView.overlays count] == 0 ) {
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!"
                                                         message:@"You have found all overlays!"
                                                        delegate:nil
@@ -168,8 +168,8 @@ typedef enum{
 /*
  * Update the UI Label with the score (overlays count)
  */
--(void)updateScoreLabel
-{
+-(void) updateScoreLabel {
+    
     int count = [_mapView.overlays count];
     
     if( count == 1 ){
@@ -187,7 +187,7 @@ typedef enum{
 /*
  * return a random color - used for overlay styling
  */
--(UIColor *)randomColorWithAlpha:(float)alpha {
+-(UIColor *) randomColorWithAlpha:(float)alpha {
     
     return [UIColor colorWithRed:((float)rand() / RAND_MAX)
                            green:((float)rand() / RAND_MAX)
@@ -200,16 +200,15 @@ typedef enum{
 /*
  * Create a OSPolyline in a random location with the specified number of points and a max distance between points
  */
--(OSPolyline*)generatePolylineWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount
-{
+-(OSPolyline*) generatePolylineWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount {
+    
     //generate the start point and then the OSGridRect this will sit in
     OSGridPoint startPoint = [self generateRandomGridPointWithinGridRect: OSNationalGridBounds];
     OSGridRect polyGridRect = OSGridRectMake(startPoint.easting, startPoint.northing, maxDelta, maxDelta);
     
     //generate X random points
     OSGridPoint points[pointsCount];
-    for( int x = 0; x < pointsCount; x++ )
-    {
+    for( int x = 0; x < pointsCount; x++ ) {
         
         points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
         
@@ -222,16 +221,15 @@ typedef enum{
 /*
  * Create a OSPolygon in a random location with the specified number of points and a max distance between points
  */
--(OSPolygon*)generatePolygonWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount
-{
+-(OSPolygon*) generatePolygonWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount {
+    
     //generate the start point and then the OSGridRect this will sit in
     OSGridPoint startPoint = [self generateRandomGridPointWithinGridRect:OSNationalGridBounds];
     OSGridRect polyGridRect = OSGridRectMake(startPoint.easting, startPoint.northing, maxDelta, maxDelta);
     
     //generate X random points
     OSGridPoint points[pointsCount];
-    for( int x = 0; x < pointsCount; x++ )
-    {
+    for( int x = 0; x < pointsCount; x++ ) {
         
         points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
         
@@ -247,8 +245,7 @@ typedef enum{
 /*
  * Create a OSPolygon with 4 points and sides of equal length
  */
--(OSPolygon*)generateSquareWithSideLength:(double)length
-{
+-(OSPolygon*) generateSquareWithSideLength:(double)length {
     
     OSGridPoint sw = [self generateRandomGridPointWithinGridRect:OSNationalGridBounds];
     
@@ -264,10 +261,10 @@ typedef enum{
 /*
  * Create a OSCircle in a random location with the specified number radius
  */
--(OSCircle*)generateOSCircleWithRadius:(double)radius
-{
+-(OSCircle*) generateOSCircleWithRadius:(double)radius {
     
     CLLocationCoordinate2D centre = OSCoordinateForGridPoint([self generateRandomGridPointWithinGridRect:OSNationalGridBounds]);
+    
     return [OSCircle circleWithCenterCoordinate:centre radius: radius];
     
 }
@@ -276,8 +273,8 @@ typedef enum{
 /*
  * Generate a OSGridPoint {e,n} within the specified OSGridRect
  */
--(OSGridPoint)generateRandomGridPointWithinGridRect:(OSGridRect)gridRect
-{
+-(OSGridPoint) generateRandomGridPointWithinGridRect:(OSGridRect)gridRect {
+    
     int minx = gridRect.originSW.easting;
     int maxx = gridRect.originSW.easting + gridRect.size.width;
     int x = minx + arc4random() % (maxx - minx);
@@ -287,13 +284,13 @@ typedef enum{
     int y = miny + arc4random() % (maxy - miny);
     
     return ((OSGridPoint){x,y});
+    
 }
 
 
 #pragma mark IBAction and UIGesture methods
 
-- (IBAction)segmentValueChanged:(id)sender
-{
+- (IBAction) segmentValueChanged:(id)sender {
     
     int index = ((UISegmentedControl*)sender).selectedSegmentIndex;
     
@@ -305,20 +302,19 @@ typedef enum{
 /*
  * Handle each UITapGestureRecognizer and determine which, if any, Overlay has been tapped
  */
-- (void)mapTapped:(UITapGestureRecognizer *)recognizer
-{
+- (void) mapTapped:(UITapGestureRecognizer *)recognizer {
     
     id<OSOverlay> tappedOverlay = nil;
     
     //iterate through overlays
-    for ( id<OSOverlay> overlay in _mapView.overlays )
-    {
+    for ( id<OSOverlay> overlay in _mapView.overlays ) {
         
         //Check if each Overlay is in current view
         OSOverlayView *view = [_mapView viewForOverlay:overlay];
-        if ( !view )
-        {
+        if ( !view ) {
+            
             continue;
+            
         }
 
             
@@ -334,16 +330,18 @@ typedef enum{
         //    the overlay are handled.
         //   It also only takes the first overlay in mapView's array if any overlap
         //
-        if ( CGRectContainsPoint(viewFrame, touchPoint) )
-        {
+        if ( CGRectContainsPoint(viewFrame, touchPoint) ) {
+            
             tappedOverlay = overlay;
             break;
+            
         }
     }
     
-    if( tappedOverlay )
-    {
+    if( tappedOverlay ) {
+        
         [self overlayTapped:tappedOverlay];
+        
     }
     
 }
@@ -352,15 +350,13 @@ typedef enum{
 #pragma mark OSMapViewDelegate methods
 
 
--(OSOverlayView *)mapView:(OSMapView *)mapView viewForOverlay:(id<OSOverlay>)overlay
-{
+-(OSOverlayView *) mapView:(OSMapView *)mapView viewForOverlay:(id<OSOverlay>)overlay {
 
     /*
      * Style each type of overlay
      */
     
-    if ( [overlay isKindOfClass:[OSCircle class]] )
-    {
+    if ( [overlay isKindOfClass:[OSCircle class]] ) {
 
         OSCircleView * view = [[OSCircleView alloc] initWithCircle:(id)overlay];
 
@@ -373,8 +369,8 @@ typedef enum{
         return view;
     }
     
-    if ( [overlay isKindOfClass:[OSPolygon class]] )
-    {
+    if ( [overlay isKindOfClass:[OSPolygon class]] ) {
+        
         OSPolygonView * view = [[OSPolygonView alloc] initWithPolygon:(id)overlay];
         
         view.lineDashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:4], [NSNumber numberWithFloat:4], nil];
@@ -385,8 +381,8 @@ typedef enum{
         return view;
     }
     
-    if ( [overlay isKindOfClass:[OSPolyline class]] )
-    {
+    if ( [overlay isKindOfClass:[OSPolyline class]] ) {
+        
         OSPolylineView * view = [[OSPolylineView alloc] initWithPolyline:(id)overlay];
         
         view.lineWidth = 5;
