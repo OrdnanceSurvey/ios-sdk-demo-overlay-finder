@@ -90,7 +90,7 @@ typedef enum{
     
 }
 
-
+#pragma mark -
 #pragma mark Game methods
 
 /*
@@ -195,7 +195,8 @@ typedef enum{
                            alpha:alpha];
 }
 
-#pragma mark OSMapView methods
+#pragma mark -
+#pragma mark Geometry generation
 
 /*
  * Create a OSPolyline in a random location with the specified number of points and a max distance between points
@@ -287,7 +288,7 @@ typedef enum{
     
 }
 
-
+#pragma mark -
 #pragma mark IBAction and UIGesture methods
 
 - (IBAction) segmentValueChanged:(id)sender {
@@ -346,7 +347,7 @@ typedef enum{
     
 }
 
-
+#pragma mark -
 #pragma mark OSMapViewDelegate methods
 
 
