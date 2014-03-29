@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+#import "OSOverlayFactory.h"
 
 
 /*
@@ -73,7 +74,6 @@ typedef enum{
         [alert show];
         
     }
-    
 
     /*
      * Create new game
@@ -132,38 +132,17 @@ typedef enum{
             break;
     }
     
-    [_mapView addOverlay:[self generateSquareWithSideLength: squareSideLen]];
+    [_mapView addOverlay:[OSOverlayFactory squareWith: squareSideLen]];
     
-    [_mapView addOverlay: [self generateOSCircleWithRadius: circleRadius]];
+    [_mapView addOverlay: [OSOverlayFactory circleWith: circleRadius]];
     
-    [_mapView addOverlay:[self generatePolygonWithMaxDelta:polyPointsDelta andPoints: polygonPointsCount]];
+    [_mapView addOverlay:[OSOverlayFactory polygonWith: polyPointsDelta andPoints: polygonPointsCount]];
     
-    [_mapView addOverlay:[self generatePolylineWithMaxDelta:polyPointsDelta andPoints: polygonPointsCount]];
-    
+    [_mapView addOverlay:[OSOverlayFactory polylineWith: polyPointsDelta andPoints: polygonPointsCount]];
     
     [self updateScoreLabel];
-    
 }
 
-
-/*
- * Action performed after an overlay has been tapped
- */
--(void) overlayTapped: (id<OSOverlay>)overlay {
-    
-    [_mapView removeOverlay: overlay];
-    [self updateScoreLabel];
-    
-    if( [_mapView.overlays count] == 0 ) {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!"
-                                                        message:@"You have found all overlays!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
-}
 
 /*
  * Update the UI Label with the score (overlays count)
@@ -195,101 +174,28 @@ typedef enum{
                            alpha:alpha];
 }
 
-#pragma mark -
-#pragma mark Geometry generation
-
-/*
- * Create a OSPolyline in a random location with the specified number of points and a max distance between points
- */
--(OSPolyline*) generatePolylineWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount {
-    
-    //generate the start point and then the OSGridRect this will sit in
-    OSGridPoint startPoint = [self generateRandomGridPointWithinGridRect: OSNationalGridBounds];
-    OSGridRect polyGridRect = OSGridRectMake(startPoint.easting, startPoint.northing, maxDelta, maxDelta);
-    
-    //generate X random points
-    OSGridPoint points[pointsCount];
-    for( int x = 0; x < pointsCount; x++ ) {
-        
-        points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
-        
-    }
-    
-    return [OSPolyline polylineWithGridPoints:points count:pointsCount];
-    
-}
-
-/*
- * Create a OSPolygon in a random location with the specified number of points and a max distance between points
- */
--(OSPolygon*) generatePolygonWithMaxDelta:(double)maxDelta andPoints:(int)pointsCount {
-    
-    //generate the start point and then the OSGridRect this will sit in
-    OSGridPoint startPoint = [self generateRandomGridPointWithinGridRect:OSNationalGridBounds];
-    OSGridRect polyGridRect = OSGridRectMake(startPoint.easting, startPoint.northing, maxDelta, maxDelta);
-    
-    //generate X random points
-    OSGridPoint points[pointsCount];
-    for( int x = 0; x < pointsCount; x++ ) {
-        
-        points[x] = [self generateRandomGridPointWithinGridRect:polyGridRect];
-        
-    }
-    
-    return [OSPolygon polygonWithGridPoints:points count:pointsCount];
-    
-    //Possibly do something with this in future
-    //return [OSPolygon polygonWithCoordinates:coords count:pointCount interiorPolygons:[NSArray arrayWithObject:AnotherArray]];
-    
-}
-
-/*
- * Create a OSPolygon with 4 points and sides of equal length
- */
--(OSPolygon*) generateSquareWithSideLength:(double)length {
-    
-    OSGridPoint sw = [self generateRandomGridPointWithinGridRect:OSNationalGridBounds];
-    
-    //array of 4 corners
-    OSGridPoint points[] = {{sw.easting,sw.northing},
-        {sw.easting+length,sw.northing},
-        {sw.easting+length,sw.northing+length},
-        {sw.easting,sw.northing+length}};
-    
-    return [OSPolygon polygonWithGridPoints: points count: 4];
-}
-
-/*
- * Create a OSCircle in a random location with the specified number radius
- */
--(OSCircle*) generateOSCircleWithRadius:(double)radius {
-    
-    CLLocationCoordinate2D centre = OSCoordinateForGridPoint([self generateRandomGridPointWithinGridRect:OSNationalGridBounds]);
-    
-    return [OSCircle circleWithCenterCoordinate:centre radius: radius];
-    
-}
-
-
-/*
- * Generate a OSGridPoint {e,n} within the specified OSGridRect
- */
--(OSGridPoint) generateRandomGridPointWithinGridRect:(OSGridRect)gridRect {
-    
-    int minx = gridRect.originSW.easting;
-    int maxx = gridRect.originSW.easting + gridRect.size.width;
-    int x = minx + arc4random() % (maxx - minx);
-    
-    int miny = gridRect.originSW.northing;
-    int maxy = gridRect.originSW.northing + gridRect.size.height;
-    int y = miny + arc4random() % (maxy - miny);
-    
-    return ((OSGridPoint){x,y});
-    
-}
 
 #pragma mark -
 #pragma mark IBAction and UIGesture methods
+
+/*
+ * Action performed after an overlay has been tapped
+ */
+-(void) overlayTapped: (id<OSOverlay>)overlay {
+    
+    [_mapView removeOverlay: overlay];
+    [self updateScoreLabel];
+    
+    if( [_mapView.overlays count] == 0 ) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!"
+                                                        message:@"You have found all overlays!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
 
 - (IBAction) segmentValueChanged:(id)sender {
     

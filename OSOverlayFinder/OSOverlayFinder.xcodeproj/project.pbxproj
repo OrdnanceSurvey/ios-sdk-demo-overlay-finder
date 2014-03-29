@@ -23,6 +23,7 @@
 		5F08FAF316A7090A002EA127 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F08FAF216A7090A002EA127 /* libsqlite3.dylib */; };
 		5F08FAF516A70924002EA127 /* OSMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F08FAF416A70924002EA127 /* OSMap.framework */; };
 		5F46A51D171D790400D719DC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F46A51C171D790400D719DC /* SystemConfiguration.framework */; };
+		D420B19D18E6DAC100835E39 /* OSOverlayFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D420B19C18E6DAC100835E39 /* OSOverlayFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		5F08FAF216A7090A002EA127 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		5F08FAF416A70924002EA127 /* OSMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSMap.framework; path = ../StaticFrameworks/OSMap.framework; sourceTree = "<group>"; };
 		5F46A51C171D790400D719DC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D420B19B18E6DAC100835E39 /* OSOverlayFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSOverlayFactory.h; sourceTree = "<group>"; };
+		D420B19C18E6DAC100835E39 /* OSOverlayFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSOverlayFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,8 @@
 		5F08FAD116A70748002EA127 /* OSOverlayFinder */ = {
 			isa = PBXGroup;
 			children = (
+				D420B19B18E6DAC100835E39 /* OSOverlayFactory.h */,
+				D420B19C18E6DAC100835E39 /* OSOverlayFactory.m */,
 				5F08FADA16A70748002EA127 /* AppDelegate.h */,
 				5F08FADB16A70748002EA127 /* AppDelegate.m */,
 				5F08FAE316A70748002EA127 /* MapViewController.h */,
@@ -194,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F08FAD816A70748002EA127 /* main.m in Sources */,
+				D420B19D18E6DAC100835E39 /* OSOverlayFactory.m in Sources */,
 				5F08FADC16A70748002EA127 /* AppDelegate.m in Sources */,
 				5F08FAE516A70748002EA127 /* MapViewController.m in Sources */,
 			);
